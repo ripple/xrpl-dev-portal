@@ -27,6 +27,34 @@
   }
 }
 
+.page-home {
+  #benefits-list {
+    @each $benefit in "public", "streamlined", "performance", "low-cost", "community", "reliability" {
+      ##{$benefit} {
+        content: url("../img/icons/#{$benefit}.svg")
+      }
+    }
+  }
+
+  #advanced-features {
+    $feature-cards: ["pink-purple", "neutral-blue", "light-green", "orange", "purple-blue-2"];
+    @for $i from 1 through 5 {
+      .col-new-card:nth-child(#{$i}) {
+        background-image: url("../img/cards/3col-#{nth($feature-cards, $i)}.svg")
+      }
+    }
+  }
+
+  #get-started {
+    $gs-cards: ["orange-yellow", "magenta-orange", "purple-blue-green", "light-blue", "green-blue"];
+    @for $i from 1 through 5 {
+      .col-new-card:nth-child(#{$i}) {
+        background-image: url("../img/cards/3col-#{nth($gs-cards, $i)}.svg")
+      }
+    }
+  }
+}
+
 
 .cta {
   position: absolute;
@@ -42,9 +70,29 @@
 
 // Page backgrounds
 .landing-bg {
-  @include media-breakpoint-down(sm) {
-    opacity: .6;
-    margin-right: -20vw;//CURSOR
+  opacity: 0.6;
+  @include media-breakpoint-up(md) {
+    opacity: 1.0;
+  }
+}
+
+.landing-builtin-bg {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    // background-image set on the page-* classes
+    background-repeat: no-repeat;
+    background-position-x: left -20vw;
+    background-position-y: top;
+    opacity: 0.6;
+    @include media-breakpoint-up(md) {
+      background-position-x: left;
+      opacity: 1.0;
+    }
   }
 }
 
@@ -58,6 +106,30 @@
   @include media-breakpoint-down(sm) {
     height: 40px;
     margin-top: 16px;
+  }
+}
+
+#wallets {
+  @each $wallet in "ledger", "secalot", "trezor", "xumm", "trust", "gatehub" {
+    #wallet-#{$wallet} {
+      content: url("../img/wallets/#{$wallet}.svg");
+    }
+  }
+}
+
+#top-exchanges {
+  // Vector logos
+  @each $exchange in "bitstamp", "kraken", "cex-io", "liquid", "lmax", "bitfinex", "etoro" {
+    #exch-#{$exchange} {
+      content: url("../img/exchanges/#{$exchange}.svg");
+    }
+  }
+
+  // Raster logos
+  @each $exchange in "bittrex", "currency-com", "ftx" {
+    #exch-#{$exchange} {
+      content: url("../img/exchanges/#{$exchange}.png");
+    }
   }
 }
 
@@ -77,12 +149,6 @@
   right: -4px;
 }
 
-// Use Cases Page
-#use-cases-blue {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 #use-cases-orange {
   position: absolute;
   top: -480px;
@@ -92,6 +158,60 @@
 #use-case-card-grid {
   @include media-breakpoint-up(lg) {
     margin-top: -40px; // offset the 40px margin of the cols
+  }
+}
+
+#validator-graphic {
+  content: url(../img/validators.svg);
+}
+
+.page-uses {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: url(../img/backgrounds/use-cases-blue.svg) no-repeat;
+    background-position-x: left -20vw;
+    background-position-y: top;
+    opacity: 0.6;
+    @include media-breakpoint-up(md) {
+      background-position-x: left;
+      opacity: 1.0;
+    }
+  }
+  @each $usecase in "micropayments", "wallets", "exchanges", "stablecoins", "nft", "defi", "cbdc" {
+    ##{$usecase} {
+      content: url("../img/icons/#{$usecase}.svg");
+    }
+  }
+
+  @each $company,$card-graphic in (
+    "bitgo": "magenta-3",
+    "bitpay": "blue-green",
+    "coil": "purple-blue",
+    "exodus": "green",
+    "forte": "light-blue-2",
+    "gatehub": "orange-3",
+    "ripple": "blue-light-blue",
+    "towo": "purple",
+    "xrpl-labs": "magenta-2",
+    "xrplorer": "green-purple"
+  ) {
+    ##{$company} {
+      background-image: url("../img/cards/3col-#{$card-graphic}.svg");
+      .biz-logo {
+        content: url("../img/uses/#{$company}.svg");
+      }
+    }
+  }
+  #raisedinspace {
+    background-image: url(../img/cards/3col-orange-yellow-2.svg);
+    .biz-logo {
+      content: url(../img/uses/raised.png);
+    }
   }
 }
 
@@ -108,7 +228,7 @@
 }
 .hidden-section {
   overflow: hidden;
-  visibility: none;
+  visibility: hidden;
   height: 0;
   &.show {
     overflow: auto;
@@ -195,11 +315,8 @@
 }
 
 .page-docs-index {
-  background: url(../img/backgrounds/bg-docs.png) no-repeat;
-  background-position-x: left -20vw;
-  background-position-y: top;
-  @include media-breakpoint-up(md) {
-    background-position-x: left;
+  &::before {
+    background-image: url(../img/backgrounds/bg-docs.png);
   }
 
   .center-search {

@@ -7,8 +7,10 @@
 /* Full-link cards */
 a.card {
   border: 0;
+  color: $white;
 }
-a.card:hover {
+a.card:hover,
+a:hover .card-new {
   text-decoration: none;
 }
 a.card:hover h3 {
@@ -30,6 +32,8 @@ a.card:hover h3 {
 
 .card-deck {
   margin-top: 2.5rem;
+  margin-left: 0;
+  margin-right: 0;
   flex-grow: 1;
   .card {
     background-position: bottom;
